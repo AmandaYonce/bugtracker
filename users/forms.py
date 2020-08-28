@@ -22,3 +22,14 @@ class CreateTicketForm(forms.Form):
     description = forms.CharField(widget=forms.Textarea)
     status = forms.CharField(widget=forms.Select(choices=CHOICES))
     title = forms.CharField(max_length=200)
+
+
+class TicketStatus(forms.Form):
+    CHOICES = (("New", 'New'), ("In Progress", "In Progress"), ("Done", "Done"), ("Invalid", "Invalid"))
+    filter_by = forms.ChoiceField(choices = CHOICES)
+
+
+class UserAssigned(forms.Form):
+    choice = forms.ChoiceField(choices =[
+        (choice.pk, choice) for choice in CustomUser.objects.all()
+    ])

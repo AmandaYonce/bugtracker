@@ -11,8 +11,8 @@
   <table class='table'>
     <tr>
       <th>New</th>
-      <th>In Progress</th>
       <th>Done</th>
+      <th>In Progress</th>
       <th>Invalid</th>
     </tr>
     <tr>
@@ -33,11 +33,37 @@
             <tr>
                 <td><a href="/ticketdetail/{{each.id}}">{{each.title}}</a></td>
                 <td>{{each.id}}</td>
-                <td>{{each.assignee}}</td>
+                <td>{{each.assignee}}
+
+                  <form method="post" action="/changeassigned/{{each.id}}/">{% csrf_token %}
+                    {{ userAss.as_p }}
+                    <select id="assigned" name="assigned" required>
+                      <option value={{each.assignee}} selected>{{each.assignee}}</option>
+                      {% for listuser in users %}
+                        <option value={{listuser}} >{{listuser}}</option>
+                      {% endfor %}
+                    </select>
+                    <input type="submit" value="Update">
+                </form>
+
+                </td>
                 <td>{{each.filer}}</td>
                 <td>{{each.completer}}</td>
                 <td>{{each.description}}</td>
-                <td>{{each.status}}</td>
+                <td>
+                  
+                  {{each.status}}
+                  <form method="post" action="/changestatus/{{each.id}}/">{% csrf_token %}
+                    {{ form.as_p }}
+                  <select id="progress" name="progress" required>
+                  <option value="New" selected>{{each.status}}</option>
+                  <option value="Invalid">Invalid</option>
+                  <option value="In Progress">In Progress</option>
+                  <option value="Done">Done</option>
+                  </select>
+                  <input type="submit" value="Update">
+                </form>
+                </td>
                 <td>{{each.timestamp}}</td>
             </tr>
             {% endfor %}
@@ -61,11 +87,35 @@
             <tr>
                 <td><a href="/ticketdetail/{{each.id}}">{{each.title}}</a></td>
                 <td>{{each.id}}</td>
-                <td>{{each.assignee}}</td>
+                <td>{{each.assignee}}
+
+                  <form method="post" action="/changeassigned/{{each.id}}/">{% csrf_token %}
+                    {{ userAss.as_p }}
+                    <select id="assigned" name="assigned" required>
+                      <option value={{each.assignee}} selected>{{each.assignee}}</option>
+                      {% for listuser in users %}
+                        <option value={{listuser}} >{{listuser}}</option>
+                      {% endfor %}
+                    </select>
+                    <input type="submit" value="Update">
+                </form>
+
+                </td>
                 <td>{{each.filer}}</td>
                 <td>{{each.completer}}</td>
                 <td>{{each.description}}</td>
-                <td>{{each.status}}</td>
+                <td>{{each.status}}
+                  <form method="post" action="/changestatus/{{each.id}}/">{% csrf_token %}
+                    {{ form.as_p }}
+                  <select id="progress" name="progress" required>
+                    <option value="Done" selected>{{each.status}}</option>
+                    <option value="Invalid">Invalid</option>
+                    <option value="In Progress">In Progress</option>
+                    <option value="New">New</option>
+                    </select>
+                    <input type="submit" value="Update">
+                  </form>
+                </td>
                 <td>{{each.timestamp}}</td>
             </tr>
             {% endfor %}
@@ -89,11 +139,35 @@
             <tr>
                 <td><a href="/ticketdetail/{{each.id}}">{{each.title}}</a></td>
                 <td>{{each.id}}</td>
-                <td>{{each.assignee}}</td>
+                <td>{{each.assignee}}
+
+                  <form method="post" action="/changeassigned/{{each.id}}/">{% csrf_token %}
+                    {{ userAss.as_p }}
+                    <select id="assigned" name="assigned" required>
+                      <option value={{each.assignee}} selected>{{each.assignee}}</option>
+                      {% for listuser in users %}
+                        <option value={{listuser}} >{{listuser}}</option>
+                      {% endfor %}
+                    </select>
+                    <input type="submit" value="Update">
+                </form>
+
+                </td>
                 <td>{{each.filer}}</td>
                 <td>{{each.completer}}</td>
                 <td>{{each.description}}</td>
-                <td>{{each.status}}</td>
+                <td>{{each.status}}
+                  <form method="post" action="/changestatus/{{each.id}}/">{% csrf_token %}
+                    {{ form.as_p }}
+                  <select id="progress" name="progress" required>
+                    <option value="In Progress" selected>{{each.status}}</option>
+                    <option value="Invalid">Invalid</option>
+                    <option value="New">New</option>
+                    <option value="Done">Done</option>
+                    </select>
+                    <input type="submit" value="Update">
+                  </form>
+                </td>
                 <td>{{each.timestamp}}</td>
             </tr>
             {% endfor %}
@@ -117,11 +191,35 @@
             <tr>
                 <td><a href="/ticketdetail/{{each.id}}">{{each.title}}</a></td>
                 <td>{{each.id}}</td>
-                <td>{{each.assignee}}</td>
+                <td>{{each.assignee}}
+
+                <form method="post" action="/changeassigned/{{each.id}}/">{% csrf_token %}
+                    {{ userAss.as_p }}
+                    <select id="assigned" name="assigned" required>
+                      <option value={{each.assignee}} selected>{{each.assignee}}</option>
+                      {% for listuser in users %}
+                        <option value={{listuser}} >{{listuser}}</option>
+                      {% endfor %}
+                    </select>
+                    <input type="submit" value="Update">
+                </form>
+
+                </td>
                 <td>{{each.filer}}</td>
                 <td>{{each.completer}}</td>
                 <td>{{each.description}}</td>
-                <td>{{each.status}}</td>
+                <td>{{each.status}}
+                  <form method="post" action="/changestatus/{{each.id}}/">{% csrf_token %}
+                    {{ form.as_p }}
+                  <select id="progress" name="progress" required>
+                    <option value="Invalid" selected>{{each.status}}</option>
+                    <option value="New">New</option>
+                    <option value="In Progress">In Progress</option>
+                    <option value="Done">Done</option>
+                    </select>
+                    <input type="submit" value="Update">
+                  </form>
+                </td>
                 <td>{{each.timestamp}}</td>
             </tr>
             {% endfor %}

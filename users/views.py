@@ -1,7 +1,7 @@
 from django.urls import reverse_lazy
 from django.views.generic.edit import CreateView, UpdateView
 from .models import *
-from .forms import CustomUserCreationForm, CreateTicketForm
+from .forms import CustomUserCreationForm, CreateTicketForm, TicketStatus
 from django.shortcuts import render, HttpResponseRedirect, reverse
 
 
@@ -16,7 +16,8 @@ def Home(request):
     progress = Tickets.objects.filter(status="In Progress")
     done = Tickets.objects.filter(status="Done")
     invalid = Tickets.objects.filter(status="Invalid")
-    return render(request, 'home.html', {"new": new, "progress": progress, "done": done, "invalid": invalid})
+    users = CustomUser.objects.all()
+    return render(request, 'home.html', {"users": users, "new": new, "progress": progress, "done": done, "invalid": invalid})
 
 
 def NewTicket(request):
@@ -41,6 +42,35 @@ def EditTicket(UpdateView):
     model = Tickets
     fields = ['title', 'description', 'status', 'assignee', 'completer']
     template_name_suffix = '_update_form'
+    return HttpResponseRedirect(reverse('home'))
+
+
+def ChangeStatus(request, ticket_id):
+    ticket = Tickets.objects.filter(id=ticket_id).first()
+    answer = request.POST['progress']
+    if answer == "In Progress":
+        ticket.status = answer
+        ticket.completer = None
+        ticket.save()
+    elif answer == "Done":
+        ticket.status = answer
+        ticket.assignee = None
+        ticket.completer = request.user.username
+        ticket.save()
+    elif answer == "Invalid":
+        ticket.status = answer
+        ticket.assignee = None
+        ticket.completer = None
+        ticket.save()
+    return HttpResponseRedirect(reverse('home'))
+
+
+def ChangeAssigned(request, ticket_id):
+    ticket = Tickets.objects.filter(id=ticket_id).first()
+    answer = request.POST['assigned']
+    new_assign = CustomUser.objects.filter(username=answer).first()
+    ticket.assignee = new_assign
+    ticket.save()
     return HttpResponseRedirect(reverse('home'))
 
 
