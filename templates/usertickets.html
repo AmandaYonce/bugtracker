@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% if user.is_authenticated %}
+<h1><a href="/" >Home</a></h1>
+  <p>Ticket List Page for {{ user.username }}</p>
+
+
+  <h1>Filed / Created By</h1>
+  <table class='table'>
+    <tr>
+        <th>Title</th>
+        <th>Ticket ID</th>
+        <th>Assigned To:</th>
+        <th>Created By:</th>
+        <th>Completed By:</th>
+        <th>Description</th>
+        <th1>Status</th1
+        <th>TimeStamp</th>
+      </tr>
+    {% for each in filed %}
+    
+      <tr>
+          <td>{{each.title}}</td>
+          <td>{{each.id}}</td>
+          <td><a href="/usertickets/{{user.id}}">{{each.assignee}}</a></td>
+          <td><a href="/usertickets/{{user.id}}">{{each.filer}}</a></td>
+          <td><a href="/usertickets/{{user.id}}">{{each.completer}}</a></td>
+          <td>{{each.description}}</td>
+          <td>{{each.status}}</td>
+          <td>{{each.timestamp}}</td>
+      </tr>
+
+
+    {% endfor %}
+    </table>
+    <h1>Assigned</h1>
+    <table class='table'>
+      <tr>
+          <th>Title</th>
+          <th>Ticket ID</th>
+          <th>Assigned To:</th>
+          <th>Created By:</th>
+          <th>Completed By:</th>
+          <th>Description</th>
+          <th1>Status</th1
+          <th>TimeStamp</th>
+        </tr>
+      {% for each in assigned %}
+      
+        <tr>
+            <td>{{each.title}}</td>
+            <td>{{each.id}}</td>
+            <td><a href="/usertickets/{{user.id}}">{{each.assignee}}</a></td>
+            <td><a href="/usertickets/{{user.id}}">{{each.filer}}</a></td>
+            <td><a href="/usertickets/{{user.id}}">{{each.completer}}</a></td>
+            <td>{{each.description}}</td>
+            <td>{{each.status}}</td>
+            <td>{{each.timestamp}}</td>
+        </tr>
+  
+  
+      {% endfor %}
+
+
+  </table>
+
+  <h1>Completed</h1>
+  <table class='table'>
+    <tr>
+        <th>Title</th>
+        <th>Ticket ID</th>
+        <th>Assigned To:</th>
+        <th>Created By:</th>
+        <th>Completed By:</th>
+        <th>Description</th>
+        <th1>Status</th1
+        <th>TimeStamp</th>
+      </tr>
+    {% for each in completer %}
+    
+      <tr>
+          <td>{{each.title}}</td>
+          <td>{{each.id}}</td>
+          <td><a href="/usertickets/{{user.id}}">{{each.assignee}}</a></td>
+          <td><a href="/usertickets/{{user.id}}">{{each.filer}}</a></td>
+          <td><a href="/usertickets/{{user.id}}">{{each.completer}}</a></td>
+          <td>{{each.description}}</td>
+          <td>{{each.status}}</td>
+          <td>{{each.timestamp}}</td>
+      </tr>
+
+
+    {% endfor %}
+  </table>
+{% else %}
+  <p>You are not logged in</p>
+  <a href="{% url 'login' %}">login</a> |
+
+{% endif %}
+{% endblock %}

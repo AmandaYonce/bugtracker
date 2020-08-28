@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% if user.is_authenticated %}
+<h1><a href="/" >Home</a></h1>
+  <p>Create A Ticket</p>
+  <form action="/newticket/" method='post'>
+
+    {% csrf_token %}
+  {{ form.as_p }}
+
+  <input type="submit" value="Submit">
+
+</form>
+
+
+{% else %}
+  <p>You are not logged in</p>
+  <a href="{% url 'login' %}">login</a> |
+
+{% endif %}
+{% endblock %}

@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% if user.is_authenticated %}
+
+<h1><a href="/" >Home</a></h1>
+  <table class='table'>
+    <tr>
+      <th>Title</th>
+      <th>Ticket ID</th>
+      <th>Assigned To:</th>
+      <th>Created By:</th>
+      <th>Completed By:</th>
+      <th>Description</th>
+      <th>Status</th>
+      <th>TimeStamp</th>
+    </tr>
+    <tr>
+        <td>{{ticket.title}}</td>
+        <td>{{ticket.id}}</td>
+        <td><a href="/usertickets/{{user.id}}">{{ticket.assignee}}</a></td>
+        <td><a href="/usertickets/{{user.id}}">{{ticket.filer}}</a></td>
+        <td><a href="/usertickets/{{user.id}}">{{ticket.completer}}</a></td>
+        <td>{{ticket.description}}</td>
+        <td>{{ticket.status}}</td>
+        <td>{{ticket.timestamp}}</td>
+    </tr>
+  </table>
+
+
+{% else %}
+  <p>You are not logged in</p>
+  <a href="{% url 'login' %}">login</a> |
+
+{% endif %}
+{% endblock %}
